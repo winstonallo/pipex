@@ -1,0 +1,6 @@
+GENERAL IDEA
+
+$./pipex (input.txt<-command1)->(command2->output.txt)
+
+$dup2 can close a file descriptor and redirect it to another one
+$--eg close stdin and redirect it to a file in order to use that file as input
