@@ -1,0 +1,156 @@
+<dup2>:
+Redirect file descriptor.
+
+Example: 
+
+	int main()
+	{
+		int fd;
+ 
+		fd = open("example.txt", O_WRONLY);
+		dup2(fd, 1); //Change STDOUT file descriptor to the one assigned to the opened file. 
+		close(fd);
+		printf("This is printed in example.txt!\n"); //Printf now writes to my file instead of stdout.
+ 		return (0);
+	}	
+
+<access>
+Check if a process has permission to access a file/directory. Returns -1 if permission is denied.
+Flags: R_OK (read permission), W_OK (write permission), X_OK (execute permission).
+
+Example:
+
+	int main()
+	{
+		if (access("example.txt", R_OK) != -1) //Check whether my process has read permission to "example.txt".
+			printf("I have permission\n");
+		else
+			printf("I don't have permission\n");
+		return (0);
+	}
+
+<execve>
+System call allowing you to call another program from the one currently running.
+execve(PATH_TO_PROGRAM, NULL-TERMINATED_ARRAY_OF_ARGUMENTS, ARRAY_OF_ENVIRONMENT_VARIABLES)
+
+Example:
+
+	int main()
+	{
+		char *args[3];
+ 
+		args[0] = "ls";
+		args[1] = "-l";
+		args[2] = NULL;
+		execve("/bin/ls", args, NULL);
+		printf("This line will not be executed.\n"); 
+		return (0);
+	}
+
+<fork>
+Creates new process by duplicating the calling process.
+Calling process: parent, duplicate: child. 
+
+Example:
+
+	int main()
+	{
+		pid_t pid;
+ 
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+ 
+		if (pid == 0)
+			printf("This is the child process. (pid: %d)\n", getpid()); //If process ID is zero, the forking was successful.
+		else
+			printf("This is the parent process. (pid: %d)\n", getpid());
+		return (0);
+	}
+
+<pipe>
+Creates unidirectional data channel used for interprocess communication. Data written to one end
+of the pipe can be read from the other end. Can be used for parent->child communication.
+
+Example:
+
+	int main()
+	{
+		int fd[2];
+		pid_t pid;
+		char buffer[13];
+ 
+		if (pipe(fd) == -1) //Use pipe to create a pipe.
+		{
+			perror("pipe");
+			exit(EXIT_FAILURE);
+		}
+		pid = fork(); //Use fork to create a child process.
+		if (pid == -1)
+		{
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+		if (pid == 0)
+		{
+			close(fd[0]); //Close the read end of the pipe.
+			write(fd[1], "Hello parent!", 13); //Write to write end of the pipe.
+			close(fd[1]); //Close the write end of the pipe.
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			close(fd[1]); //Close the write end of the pipe.
+			read(fd[0], buffer, 13);
+			close(fd[0]); //Close the read end of the pipe.
+			printf("Message from child: '%s'\n", buffer);
+			exit(EXIT_SUCCESS);
+		}
+	}
+
+<unlink>
+Remove file from file system.
+
+Example:
+
+	int main()
+	{	
+		if (unlink("example.txt") == 0)
+			printf("File successfully deleted");
+		else
+			printf("Error deleting file");
+		return (0);
+	}
+
+<wait>
+Suspend execution of calling process until child process is terminated.
+
+Example:
+
+	int main(int argc, char *argv[])
+	{
+		pid_t pid;
+ 
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+		else if (pid == 0)
+		{
+			printf("I am the child process.\n");
+			sleep(2);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			printf("I am the parent process.\n");
+			wait(NULL);
+			printf("Child process terminated after a 2s delay.\n");
+		}
+		return (EXIT_SUCCESS);
+	}
