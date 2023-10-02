@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/02 22:16:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/02 22:53:10 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_path(char *command, t_list *data)
 	return (NULL);
 }
 
-int	give_birth(char *command_path, char **command_arguments)
+int	give_birth(t_list *data, char **command_arguments)
 {
 	pid_t	process_id;
 
@@ -83,7 +83,9 @@ int	give_birth(char *command_path, char **command_arguments)
 	}
 	if (process_id == 0)
 	{
-		if (execve(command_path, command_arguments, NULL) == -1)
+		dup2(data->fd[1], 1);
+		ft_printf("%d\n", data->fd[1]);
+		if (execve(data->input_path, command_arguments, NULL) == -1)
 		{
 			perror("execve");
 			exit(EXIT_FAILURE);
@@ -92,30 +94,26 @@ int	give_birth(char *command_path, char **command_arguments)
 	return (process_id);
 }
 
-int	*initialize_fd(char **argv)
-{
-	int	*fd;
-	
-	fd = malloc(2 * sizeof(int));
-	fd[0] = open(argv[1], O_RDONLY);
-	if (fd[0] == -1)
+void	initialize_fd(char **argv, t_list *data)
+{		
+	data->fd = malloc(2 * sizeof(int));
+	data->fd[0] = open(argv[1], O_RDONLY);
+	if (data->fd[0] == -1)
 	{
 		perror("open");
-		return (NULL);
+		return ;
 	}
-	fd[1] = open(argv[4], O_WRONLY);
-	if (fd[1] == -1)
+	data->fd[1] = open(argv[4], O_WRONLY);
+	if (data->fd[1] == -1)
 	{
 		perror("open");
-		return (NULL);
+		return ;
 	}
-	return (fd);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*args[2];
-	int		*fd;
 	pid_t	process_id;
 	t_list	*data;
 
@@ -130,19 +128,17 @@ int	main(int argc, char **argv, char **envp)
 	data->output_path = get_path(argv[3], data);
 	if (!data->output_path)
 		return (-1);
-	fd = initialize_fd(argv);
-	if (!fd)
+	initialize_fd(argv, data);
+	if (!data->fd)
 		return (-1);
-	if (pipe(fd) == -1)
+	if (pipe(data->fd) == -1)
 		return (-1);
 	args[0] = argv[1];
 	args[1] = NULL;
-	process_id = give_birth(data->input_path, args);
+	process_id = give_birth(data, args);
 	if (process_id != 0)
 		wait(0);
 	free(data->input_path);
 	free(data->output_path);
-	close(fd[0]);
-	close(fd[1]);
 	return (0);
 }
