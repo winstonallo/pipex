@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:50:32 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/02 18:57:55 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/02 19:28:20 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s1_len = ft_strlen(s1);
 	size = s1_len + ft_strlen(s2) + 1;
 	dest = malloc(size * sizeof(char));
-	if (dest == NULL)
+	if (!dest)
 		return (0);
 	while (s1[++i])
 		dest[i] = s1[i];
