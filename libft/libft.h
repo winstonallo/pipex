@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:42:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/09/29 16:44:20 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:41:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10

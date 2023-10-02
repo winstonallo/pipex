@@ -12,7 +12,7 @@ Example:
 		close(fd);
 		printf("This is printed in example.txt!\n"); //Printf now writes to my file instead of stdout.
  		return (0);
-	}	
+	}
 
 <access>
 Check if a process has permission to access a file/directory. Returns -1 if permission is denied.
