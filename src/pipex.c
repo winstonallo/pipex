@@ -14,7 +14,7 @@
 
 t_list	*parse_environment(char **envp)
 {
-	static char	**paths;
+	char		**paths;
 	t_list		*new;
 	char		**temp;
 	
@@ -71,7 +71,7 @@ char	*get_path(char *command, t_list *data)
 	return (NULL);
 }
 
-int	give_birth(t_list *data, char **command_arguments)
+int	give_birth(t_list *data, char **command_arguments, char **envp)
 {
 	pid_t	process_id;
 
@@ -83,9 +83,9 @@ int	give_birth(t_list *data, char **command_arguments)
 	}
 	if (process_id == 0)
 	{
-		dup2(data->fd[1], 1);
-		ft_printf("%d\n", data->fd[1]);
-		if (execve(data->input_path, command_arguments, NULL) == -1)
+		if  (dup2(data->fd[0], STDIN_FILENO) < 0 || dup2(data->fd[1], STDOUT_FILENO) < 0)
+		ft_printf("pid: %d\ndata->fd[0]: %d\ndata->fd[1]: %d\ndata->input_path: %s\n", process_id, data->fd[0], data->fd[1], data->input_path);
+		if (execve(data->input_path, command_arguments, envp) == -1)
 		{
 			perror("execve");
 			exit(EXIT_FAILURE);
@@ -131,13 +131,11 @@ int	main(int argc, char **argv, char **envp)
 	initialize_fd(argv, data);
 	if (!data->fd)
 		return (-1);
-	if (pipe(data->fd) == -1)
-		return (-1);
 	args[0] = argv[1];
 	args[1] = NULL;
-	process_id = give_birth(data, args);
+	process_id = give_birth(data, args, envp);
 	if (process_id != 0)
-		wait(0);
+		wait(NULL);
 	free(data->input_path);
 	free(data->output_path);
 	return (0);

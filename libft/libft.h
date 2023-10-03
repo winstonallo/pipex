@@ -17,7 +17,6 @@
 # include <stdio.h>
 # include <ctype.h>
 # include <stddef.h>
-# include <bsd/string.h>
 # include <unistd.h>
 # include <stdarg.h>
 # include <unistd.h>
