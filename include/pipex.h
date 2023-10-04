@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:27:08 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/02 21:24:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/04 09:03:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define PIPEX_H
 
 # include "../libft/libft.h"
-
-
 
 int	main(int argc, char **argv, char **envp);
 
