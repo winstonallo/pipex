@@ -1,7 +1,1 @@
-cat.txt
-include
-libft
-Makefile
 output.txt
-pipex
-src

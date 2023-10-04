@@ -6,12 +6,11 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/04 13:55:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:13:36 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
-
 
 int	parse_environment(char **envp, t_list *data)
 {
@@ -59,7 +58,10 @@ int	cleanup(t_list *data)
 		free(data->input_command);
 	if (data->output_command)
 		free(data->output_command);
-
+	if (data->input_args)
+		ft_free_array(data->input_args);
+	if (data->output_args)
+		ft_free_array(data->output_args);
 	free(data);
 	return (-1);
 }
