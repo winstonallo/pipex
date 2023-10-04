@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:42:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/04 09:57:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:35:56 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ typedef struct s_list
 	char			**paths;
 	char			*input_path;
 	char			*output_path;
-	int				*fd;
+	int				pipe[2];
 	pid_t			process_id1;
 	pid_t			process_id2;
+	int				input_fd;
+	int				output_fd;
 }	t_list;
 
 int		ft_isdigit(int c);

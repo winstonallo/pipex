@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/04 10:10:24 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:45:04 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ void	cleanup(t_list *data)
 		free(data->input_path);
 	if (data->output_path)
 		free(data->output_path);
-	close(data->fd[0]);
-	close(data->fd[1]);
-	free(data->fd);
 	free(data);
 }
 
@@ -86,31 +83,36 @@ char	*get_path(char *command, t_list *data)
 
 void	give_birth1(t_list *data, char **command_arguments, char **envp)
 {
-	dup2(data->fd[1], 1);
-	close(data->fd[0]);
-	dup2(pipex.infile, 0);
-	pipex.cmd_args = ft_split(argv[2], ' ');
-	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
-	if (!pipex.cmd)
-	{
-		child_free(&pipex);
-		msg(ERR_CMD);
-		exit(1);
-	}
-	execve(pipex.cmd, pipex.cmd_args, envp);
+	if (dup2(data->pipe[1], STDOUT_FILENO) == -1)
+		perror("dup child 1");
+	close(data->pipe[0]);
+	dup2(data->input_fd, STDIN_FILENO);
+	if (execve(data->input_path, command_arguments, envp) == -1)
+		perror("child 1");
 }
 
-void	initialize_fd(char **argv, t_list *data)
+void	give_birth2(t_list *data, char **command_arguments, char **envp)
 {
-	data->fd = malloc(2 * sizeof(int));
-	data->fd[0] = open(argv[1], O_RDONLY);
-	if (data->fd[0] == -1)
+	if (dup2(data->pipe[0], STDIN_FILENO) == -1)
+		perror("dup child 1");
+	close(data->pipe[1]);
+	dup2(data->output_fd, STDOUT_FILENO);
+	if (execve(data->output_path, command_arguments, envp) == -1)
+		perror("child 2");
+}
+
+
+
+void	open_files(char **argv, t_list *data)
+{
+	data->input_fd = open(argv[1], O_RDONLY);
+	if (data->input_fd == -1)
 	{
 		perror("open");
 		return ;
 	}
-	data->fd[1] = open(argv[4], O_WRONLY);
-	if (data->fd[1] == -1)
+	data->output_fd = open(argv[4], O_WRONLY);
+	if (data->output_fd == -1)
 	{
 		perror("open");
 		return ;
@@ -121,10 +123,17 @@ void	initialize_data(t_list *data)
 {	
 	data->process_id1 = -1;
 	data->process_id2 = -1;
+	data->input_fd = -1;
+	data->output_fd = -1;
 	data->paths = NULL;
-	data->fd = NULL;
 	data->input_path = NULL;
 	data->output_path = NULL;
+}
+
+void	close_pipes(t_list *data)
+{
+	close(data->pipe[0]);
+	close(data->pipe[1]);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -140,22 +149,39 @@ int	main(int argc, char **argv, char **envp)
 	initialize_data(data);
 	parse_environment(envp, data);
 	if (!data->paths)
+	{
+		perror("path parsing");
 		return (-1);
+	}
 	data->input_path = get_path(argv[2], data);
 	if (!data->input_path)
+	{
+		perror("input path");
 		return (-1);
+	}
 	data->output_path = get_path(argv[3], data);
 	if (!data->output_path)
+	{
+		perror("output path");
 		return (-1);
-	initialize_fd(argv, data);
-	if (!data->fd)
+	}
+	if (pipe(data->pipe) < 0)
+	{
+		perror("pipe");
 		return (-1);
+	}	
+	open_files(argv, data);
 	args[0] = argv[1];
 	args[1] = NULL;
 	data->process_id1 = fork();
 	if (data->process_id1 == 0)
 		give_birth1(data, args, envp);
+	data->process_id2 = fork();
+	if (data->process_id2 == 0)
+		give_birth2(data, args, envp);
+	close_pipes(data);
 	waitpid(data->process_id1, NULL, 0);
+	waitpid(data->process_id2, NULL, 0);
 	cleanup(data);
 	return (0);
 }
