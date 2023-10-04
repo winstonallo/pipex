@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:42:04 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/04 11:35:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/04 12:31:49 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ typedef struct s_list
 	pid_t			process_id2;
 	int				input_fd;
 	int				output_fd;
+	char			**input_args;
+	char			**output_args;
+	char			*input_command;
+	char			*output_command;
 }	t_list;
 
 int		ft_isdigit(int c);
