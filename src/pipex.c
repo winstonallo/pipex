@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 11:22:29 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:48:44 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*args[2];
 	t_list	*data;
 
 	if (argc != 5)
@@ -48,15 +47,14 @@ int	main(int argc, char **argv, char **envp)
 		perror("pipe");
 		return (-1);
 	}
+
 	open_files(argv, data);
-	args[0] = argv[1];
-	args[1] = NULL;
 	data->process_id1 = fork();
 	if (data->process_id1 == 0)
-		give_birth1(data, args, envp);
+		give_birth1(data, envp);
 	data->process_id2 = fork();
 	if (data->process_id2 == 0)
-		give_birth2(data, args, envp);
+		give_birth2(data, envp);
 	close_pipes(data);
 	waitpid(data->process_id1, NULL, 0);
 	waitpid(data->process_id2, NULL, 0);

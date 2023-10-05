@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:27:08 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 11:20:07 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:30:18 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "../libft/libft.h"
 
 int		main(int argc, char **argv, char **envp);
-void	give_birth1(t_list *data, char **command_arguments, char **envp);
-void	give_birth2(t_list *data, char **command_arguments, char **envp);
+void	give_birth1(t_list *data, char **envp);
+void	give_birth2(t_list *data, char **envp);
 int		get_output_args(char **argv, t_list *data);
 int		get_input_args(char **argv, t_list *data);
 char	*get_path(char *command, t_list *data);
