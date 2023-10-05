@@ -1,9 +1,1 @@
-total 52
-drwxr-xr-x 2 abied-ch 2023_vienna  4096 Sep 29 20:28 include
--rw-r--r-- 1 abied-ch 2023_vienna     0 Oct  5 11:24 input.txt
-drwxr-xr-x 3 abied-ch 2023_vienna  4096 Oct  5 11:44 libft
--rw-r--r-- 1 abied-ch 2023_vienna  1387 Oct  5 11:20 Makefile
--rwxr-xr-x 1 abied-ch 2023_vienna    60 Oct  5 11:52 output.txt
--rwxr-xr-x 1 abied-ch 2023_vienna 27520 Oct  5 11:52 pipex
-drwxr-xr-x 2 abied-ch 2023_vienna  4096 Oct  5 11:52 src
-drwxr-xr-x 2 abied-ch 2023_vienna  4096 Oct  5 11:44 utils
+1

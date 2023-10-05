@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 11:52:40 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:01:58 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,44 +58,15 @@ char	*get_path(char *command, t_list *data)
 	return (NULL);
 }
 
-int	get_input_args(char **argv, t_list *data)
-{
-	char	**temp;
-	int		i;
-	int		size;
-
-	size = 0;
-	temp = ft_split(argv[2], ' ');
-	if (!temp)
-		return (-1);
-	while (temp[size])
-		size++;
-	data->input_command = strdup(temp[0]);
-	if (!data->input_command)
-		return (ft_free_array(temp), -1);
-	data->input_args = malloc((size + 1) * sizeof(char *));
-	if (!data->input_args)
-		return (ft_free_array(temp), free(data->input_command), -1);
-	i = -1;
-	while (++i < size - 1)
-	{
-		if (temp[i + 1])
-			data->input_args[i] = ft_strdup(temp[i + 1]);
-		if (!data->input_args[i] && !temp[i])
-			return (ft_free_array(data->input_args),
-				ft_free_array(temp), free(data->input_command), -1);
-	}
-	data->input_args[i] = argv[1];
-	data->input_args[++i] = NULL;
-	ft_free_array(temp);
-	return (0);
-}
-
-int	get_output_args(char **argv, t_list *data)
+int	initialize_args(char **argv, t_list *data)
 {
 	data->output_args = ft_split(argv[3], ' ');
 	if (!data->output_args)
 		return (cleanup(data), -1);
 	data->output_command = data->output_args[0];
+	data->input_args = ft_split(argv[3], ' ');
+	if (!data->input_args)
+		return (cleanup(data), -1);
+	data->input_command = data->input_args[0];
 	return (0);
 }

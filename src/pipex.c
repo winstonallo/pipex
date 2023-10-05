@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 11:48:44 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:02:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		perror("path parsing");
 		return (-1);
 	}
-	get_input_args(argv, data);
-	get_output_args(argv, data);
+	initialize_args(argv, data);
 	data->input_path = get_path(data->input_command, data);
 	if (!data->input_path)
 	{
