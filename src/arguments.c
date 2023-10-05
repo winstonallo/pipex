@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 15:36:51 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:26:47 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*get_path(char *command, t_list *data)
 	if (!data->paths)
 		return (NULL);
 	i = -1;
+	if (access(command, X_OK) == 0)
+		return (ft_strdup(command));
 	command = ft_strjoin("/", command);
 	if (!command)
 		return (perror("Memory allocation"), NULL);
@@ -49,10 +51,7 @@ char	*get_path(char *command, t_list *data)
 		if (!final_path)
 			return (perror("Memory allocation"), NULL);
 		if (access(final_path, X_OK) == 0)
-		{
-			free(command);
-			return (final_path);
-		}
+			return (free(command), final_path);
 		free(final_path);
 	}
 	perror("Command not found");
