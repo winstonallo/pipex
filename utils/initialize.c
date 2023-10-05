@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:19:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 13:18:03 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:57:11 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	open_files(char **argv, t_list *data)
 	data->input_fd = open(argv[1], O_RDONLY);
 	if (data->input_fd == -1)
 		error("Open Input File", data);
-	data->output_fd = open(argv[4], O_WRONLY | O_CREAT, 0777);
+	data->output_fd = open(argv[4], O_WRONLY | O_CREAT, 0666);
 	if (data->output_fd == -1)
 		error("Open Output File", data);
 }
