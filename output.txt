@@ -1,7 +1,1 @@
-total 36
--rw-r--r-- 1 abied-ch 2023_vienna 1998 Oct  5 13:53 arguments.c
--rw-r--r-- 1 abied-ch 2023_vienna 5616 Oct  5 13:55 arguments.o
--rw-r--r-- 1 abied-ch 2023_vienna 1463 Oct  5 13:53 children.c
--rw-r--r-- 1 abied-ch 2023_vienna 4576 Oct  5 13:55 children.o
--rw-r--r-- 1 abied-ch 2023_vienna 1847 Oct  5 13:29 pipex.c
--rw-r--r-- 1 abied-ch 2023_vienna 5424 Oct  5 13:55 pipex.o
+0
