@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 13:02:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:24:26 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,16 @@ int	main(int argc, char **argv, char **envp)
 	initialize_data(data);
 	parse_environment(envp, data);
 	if (!data->paths)
-	{
-		perror("path parsing");
-		return (-1);
-	}
+		error("Parse Environment", data);
 	initialize_args(argv, data);
 	data->input_path = get_path(data->input_command, data);
 	if (!data->input_path)
-	{
-		perror("input path");
-		return (-1);
-	}
+		error("Input Path", data);
 	data->output_path = get_path(data->output_command, data);
 	if (!data->output_path)
-	{
-		perror("output path");
-		return (-1);
-	}
+		error("Output Path", data);
 	if (pipe(data->pipe) < 0)
-	{
-		perror("pipe");
-		return (-1);
-	}
-
+		error("Pipe", data);
 	open_files(argv, data);
 	data->process_id1 = fork();
 	if (data->process_id1 == 0)

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:17:29 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 11:22:50 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:20:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	cleanup(t_list *data)
 		free(data->input_path);
 	if (data->output_path)
 		free(data->output_path);
+	if (data->input_args)
+		ft_free_array(data->input_args);
+	if (data->output_args)
+		ft_free_array(data->output_args);
 	free(data);
 }
 

@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:27:08 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 13:02:13 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:13:41 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	cleanup(t_list *data);
 void	ft_free_array(char **arr);
 void	initialize_data(t_list *data);
 void	open_files(char **argv, t_list *data);
+void	error(char *error_message, t_list *data);
 
 #endif

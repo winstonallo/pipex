@@ -1,1 +1,18 @@
-1
+total 56
+drwxr-xr-x 2 abied-ch 2023_vienna  4096 Sep 29 20:28 include
+-rw-r--r-- 1 abied-ch 2023_vienna    13 Oct  5 13:00 input.txt
+drwxr-xr-x 3 abied-ch 2023_vienna  4096 Oct  5 11:44 libft
+-rw-r--r-- 1 abied-ch 2023_vienna  1406 Oct  5 13:07 Makefile
+-rwxr-xr-x 1 abied-ch 2023_vienna   986 Oct  5 13:24 output.txt
+-rwxr-xr-x 1 abied-ch 2023_vienna 27896 Oct  5 13:24 pipex
+drwxr-xr-x 2 abied-ch 2023_vienna  4096 Oct  5 13:24 src
+drwxr-xr-x 2 abied-ch 2023_vienna  4096 Oct  5 13:20 utils
+total 56
+drwxr-xr-x 2 abied-ch 2023_vienna  4096 Sep 29 20:28 include
+-rw-r--r-- 1 abied-ch 2023_vienna    13 Oct  5 13:00 input.txt
+drwxr-xr-x 3 abied-ch 2023_vienna  4096 Oct  5 11:44 libft
+-rw-r--r-- 1 abied-ch 2023_vienna  1406 Oct  5 13:07 Makefile
+-rwxr-xr-x 1 abied-ch 2023_vienna   986 Oct  5 13:21 output.txt
+-rwxr-xr-x 1 abied-ch 2023_vienna 27872 Oct  5 13:20 pipex
+drwxr-xr-x 2 abied-ch 2023_vienna  4096 Oct  5 13:20 src
+drwxr-xr-x 2 abied-ch 2023_vienna  4096 Oct  5 13:20 utils
