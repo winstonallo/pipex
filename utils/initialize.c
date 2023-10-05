@@ -22,9 +22,7 @@ int	open_files(char *file_name, int fd, t_list *data)
 		data->input_fd = open(file_name, O_RDONLY);
 		if (data->input_fd == -1)
 		{
-			write(2, file_name, ft_strlen(file_name));
-			write(2, ": ", 2);
-			perror("");
+			perror("open infile");
 			open_fail = 1;
 		}
 	}
