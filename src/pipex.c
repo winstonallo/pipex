@@ -12,54 +12,6 @@
 
 #include "../include/pipex.h"
 
-void	execute(char *command_path, char ** args, char **envp, t_list *data)
-{
-	if (execve(command_path, args, envp) == -1)
-	{
-		perror("execve");
-		cleanup(data);
-		exit(0);
-	}
-}
-
-void	firstborn(t_list *data, char **envp, char **argv)
-{
-	open_files(argv[4], 0, data);
-	if (dup2(data->input_fd, STDIN_FILENO) == -1)
-	{
-		perror("firstborn dup2");
-		cleanup(data);
-		exit(EXIT_FAILURE);
-	}
-	if (dup2(data->pipe[1], STDOUT_FILENO) == -1)
-	{
-		perror("firstborn dup2");
-		cleanup(data);
-		exit(EXIT_FAILURE);
-	}
-	close(data->pipe[0]);
-	execute(data->input_path, data->input_args, envp, data);
-}
-
-void	mommy(t_list *data, char **envp, char **argv)
-{
-	open_files(argv[4], 1, data);
-	if (dup2(data->output_fd, STDOUT_FILENO) == -1)
-	{
-		perror("mommy dup2");
-		cleanup(data);
-		exit(EXIT_FAILURE);
-	}
-	if (dup2(data->pipe[0], STDIN_FILENO) == -1)
-	{
-		perror("mommy dup2");
-		cleanup(data);
-		exit(EXIT_FAILURE);
-	}
-	close(data->pipe[1]);
-	execute(data->output_path, data->output_args, envp, data);
-}
-
 void	pipex(t_list *data, char **argv, char **envp)
 {
 	initialize_args(argv, data);
