@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/04 14:13:36 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 10:50:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,12 @@ void	ft_free_array(char **arr)
 	int	i;
 
 	i = -1;
-	if (arr)
-	{
-		while (arr[++i])
-			free(arr[i]);
-		free(arr);
-	}
+	while (arr[++i])
+		free(arr[i]);
+	free(arr);
 }
 
-int	cleanup(t_list *data)
+void	cleanup(t_list *data)
 {
 	if (data->paths)
 		ft_free_array(data->paths);
@@ -54,23 +51,16 @@ int	cleanup(t_list *data)
 		free(data->input_path);
 	if (data->output_path)
 		free(data->output_path);
-	if (data->input_command)
-		free(data->input_command);
-	if (data->output_command)
-		free(data->output_command);
-	if (data->input_args)
-		ft_free_array(data->input_args);
-	if (data->output_args)
-		ft_free_array(data->output_args);
 	free(data);
-	return (-1);
 }
 
-char	*get_path(t_list *data, char *command)
+char	*get_path(char *command, t_list *data)
 {
 	int		i;
 	char	*final_path;
 
+	if (!data->paths)
+		return (NULL);
 	i = -1;
 	command = ft_strjoin("/", command);
 	if (!command)
@@ -80,6 +70,7 @@ char	*get_path(t_list *data, char *command)
 		final_path = ft_strjoin(data->paths[i], command);
 		if (!final_path)
 			return (NULL);
+		ft_printf("%d---%s\n", i, final_path);
 		if (access(final_path, X_OK) == 0)
 		{
 			free(command);
@@ -90,23 +81,23 @@ char	*get_path(t_list *data, char *command)
 	return (NULL);
 }
 
-void	give_birth1(t_list *data, char **envp)
+void	give_birth1(t_list *data, char **command_arguments, char **envp)
 {
 	if (dup2(data->pipe[1], STDOUT_FILENO) == -1)
 		perror("dup child 1");
 	close(data->pipe[0]);
 	dup2(data->input_fd, STDIN_FILENO);
-	if (execve(data->input_path, data->input_args, envp) == -1)
+	if (execve(data->input_path, command_arguments, envp) == -1)
 		perror("child 1");
 }
 
-void	give_birth2(t_list *data, char **envp)
+void	give_birth2(t_list *data, char **command_arguments, char **envp)
 {
 	if (dup2(data->pipe[0], STDIN_FILENO) == -1)
 		perror("dup child 1");
 	close(data->pipe[1]);
 	dup2(data->output_fd, STDOUT_FILENO);
-	if (execve(data->output_path, data->output_args, envp) == -1)
+	if (execve(data->output_path, command_arguments, envp) == -1)
 		perror("child 2");
 }
 
@@ -117,13 +108,13 @@ void	open_files(char **argv, t_list *data)
 	data->input_fd = open(argv[1], O_RDONLY);
 	if (data->input_fd == -1)
 	{
-		perror("open input");
+		perror("open");
 		return ;
 	}
 	data->output_fd = open(argv[4], O_WRONLY | O_CREAT, 0777);
 	if (data->output_fd == -1)
 	{
-		perror("open output");
+		perror("open");
 		return ;
 	}
 }
@@ -137,10 +128,6 @@ void	initialize_data(t_list *data)
 	data->paths = NULL;
 	data->input_path = NULL;
 	data->output_path = NULL;
-	data->input_args = NULL;
-	data->output_args = NULL;
-	data->input_command = NULL;
-	data->output_command = NULL;
 }
 
 void	close_pipes(t_list *data)
@@ -199,7 +186,7 @@ int	get_output_args(char **argv, t_list *data)
 		return (ft_free_array(temp), -1);
 	data->output_args = malloc((size + 1) * sizeof(char *));
 	if (!data->output_args)
-		return (ft_free_array(temp), cleanup(data) -1);
+		return (ft_free_array(temp), cleanup(data), -1);
 	i = -1;
 	while (++i < size - 1)
 	{
@@ -216,6 +203,7 @@ int	get_output_args(char **argv, t_list *data)
 
 int	main(int argc, char **argv, char **envp)
 {
+	char	*args[2];
 	t_list	*data;
 
 	if (argc != 5)
@@ -232,14 +220,13 @@ int	main(int argc, char **argv, char **envp)
 	}
 	get_input_args(argv, data);
 	get_output_args(argv, data);
-
-	data->input_path = get_path(data, data->input_command);
+	data->input_path = get_path(data->input_command, data);
 	if (!data->input_path)
 	{
 		perror("input path");
 		return (-1);
 	}
-	data->output_path = get_path(data, data->output_command);
+	data->output_path = get_path(data->output_command, data);
 	if (!data->output_path)
 	{
 		perror("output path");
@@ -251,12 +238,14 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	}	
 	open_files(argv, data);
+	args[0] = argv[1];
+	args[1] = NULL;
 	data->process_id1 = fork();
 	if (data->process_id1 == 0)
-		give_birth1(data, envp);
+		give_birth1(data, args, envp);
 	data->process_id2 = fork();
 	if (data->process_id2 == 0)
-		give_birth2(data, envp);
+		give_birth2(data, args, envp);
 	close_pipes(data);
 	waitpid(data->process_id1, NULL, 0);
 	waitpid(data->process_id2, NULL, 0);
