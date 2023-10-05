@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:12:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 15:37:45 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:54:54 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	give_birth1(t_list *data, char **envp)
 
 void	give_birth2(t_list *data, char **envp)
 {
+	
 	if (dup2(data->pipe[0], STDIN_FILENO) == -1)
 		perror("DUP2 child 2");
 	close(data->pipe[1]);
