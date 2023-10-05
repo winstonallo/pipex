@@ -25,7 +25,7 @@ int		parse_environment(char **envp, t_list *data);
 int		cleanup(t_list *data);
 // void	ft_free_array(char **arr);
 void	initialize_data(t_list *data);
-int		open_files(char **argv, t_list *data);
+int		open_files(char *file_name, int fd, t_list *data);
 // void	error(char *error_message, t_list *data);*/
 
 #endif
