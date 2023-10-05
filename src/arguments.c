@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 15:18:42 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:36:51 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ char	*get_path(char *command, t_list *data)
 	i = -1;
 	command = ft_strjoin("/", command);
 	if (!command)
-		return (perror("memory allocation"), NULL);
+		return (perror("Memory allocation"), NULL);
 	while (data->paths[++i])
 	{
 		final_path = ft_strjoin(data->paths[i], command);
 		if (!final_path)
-			return (perror("memory allocation"), NULL);
+			return (perror("Memory allocation"), NULL);
 		if (access(final_path, X_OK) == 0)
 		{
 			free(command);
@@ -55,7 +55,7 @@ char	*get_path(char *command, t_list *data)
 		}
 		free(final_path);
 	}
-	perror("command not found");
+	perror("Command not found");
 	free(command);
 	exit(cleanup(data));
 	return (NULL);
@@ -66,7 +66,7 @@ int	initialize_args(char **argv, t_list *data)
 	data->output_args = ft_split(argv[3], ' ');
 	if (!data->output_args)
 	{
-		perror("ouput arguments");
+		perror("Ouput arguments");
 		cleanup(data);
 		exit (-1);
 	}
@@ -74,7 +74,7 @@ int	initialize_args(char **argv, t_list *data)
 	data->input_args = ft_split(argv[2], ' ');
 	if (!data->input_args)
 	{
-		perror("input arguments");
+		perror("Input arguments");
 		cleanup(data);
 		exit (-1);
 	}
