@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 13:24:26 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:29:15 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*data;
 
 	if (argc != 5)
-		return (-1);
+		ft_putendl_fd("Error: Too many arguments", 2);
 	data = malloc(sizeof(t_list));
 	if (!data)
 		return (-1);

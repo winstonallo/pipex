@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 13:19:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:53:19 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	initialize_args(char **argv, t_list *data)
 	if (!data->output_args)
 		error("Output Arguments", data);
 	data->output_command = data->output_args[0];
-	data->input_args = ft_split(argv[3], ' ');
+	data->input_args = ft_split(argv[2], ' ');
 	if (!data->input_args)
 		error("Input Arguments", data);
 	data->input_command = data->input_args[0];
