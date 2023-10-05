@@ -32,10 +32,15 @@ int	open_files(char *file_name, int fd, t_list *data)
 	{
 		data->output_fd = open(file_name, O_CREAT | O_TRUNC | O_RDWR, 0000644);
 		if (data->output_fd == -1)
-			return(perror("outfile"), 1);
+		{
+			perror("open outfile");
+			cleanup(data);
+			exit(EXIT_FAILURE);
+		}
 	}
 	if (open_fail == 0)
 		return (0);
-	exit (0);
+	cleanup(data);
+	exit (EXIT_FAILURE);
 }
 

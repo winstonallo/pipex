@@ -25,8 +25,18 @@ void	execute(char *command_path, char ** args, char **envp, t_list *data)
 void	firstborn(t_list *data, char **envp, char **argv)
 {
 	open_files(argv[4], 0, data);
-	dup2(data->input_fd, STDIN_FILENO);
-	dup2(data->pipe[1], STDOUT_FILENO);
+	if (dup2(data->input_fd, STDIN_FILENO) == -1)
+	{
+		perror("firstborn dup2");
+		cleanup(data);
+		exit(EXIT_FAILURE);
+	}
+	if (dup2(data->pipe[1], STDOUT_FILENO) == -1)
+	{
+		perror("firstborn dup2");
+		cleanup(data);
+		exit(EXIT_FAILURE);
+	}
 	close(data->pipe[0]);
 	execute(data->input_path, data->input_args, envp, data);
 }
@@ -34,8 +44,18 @@ void	firstborn(t_list *data, char **envp, char **argv)
 void	mommy(t_list *data, char **envp, char **argv)
 {
 	open_files(argv[4], 1, data);
-	dup2(data->output_fd, STDOUT_FILENO);
-	dup2(data->pipe[0], STDIN_FILENO);
+	if (dup2(data->output_fd, STDOUT_FILENO) == -1)
+	{
+		perror("mommy dup2");
+		cleanup(data);
+		exit(EXIT_FAILURE);
+	}
+	if (dup2(data->pipe[0], STDIN_FILENO) == -1)
+	{
+		perror("mommy dup2");
+		cleanup(data);
+		exit(EXIT_FAILURE);
+	}
 	close(data->pipe[1]);
 	execute(data->output_path, data->output_args, envp, data);
 }
