@@ -12,7 +12,13 @@
 
 #include "../include/pipex.h"
 
-void	ft_free_array(char **arr)
+static void	close_pipes(t_dumpster *data)
+{
+	close(data->pipe[0]);
+	close(data->pipe[1]);
+}
+
+static void	ft_free_array(char **arr)
 {
 	int	i;
 
@@ -22,7 +28,7 @@ void	ft_free_array(char **arr)
 	free(arr);
 }
 
-int	cleanup(t_list *data)
+int	cleanup(t_dumpster *data)
 {
 	if (data->paths)
 		ft_free_array(data->paths);
@@ -35,11 +41,7 @@ int	cleanup(t_list *data)
 	if (data->output_path)
 		free(data->output_path);
 	free(data);
+	close_pipes(data);
 	return (-1);
 }
 
-void	close_pipes(t_list *data)
-{
-	close(data->pipe[0]);
-	close(data->pipe[1]);
-}

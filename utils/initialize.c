@@ -12,7 +12,7 @@
 
 #include "../include/pipex.h"
 
-int	open_files(char *file_name, int fd, t_list *data)
+int	open_files(char *file_name, int fd, t_dumpster *data)
 {
 	int	open_fail;
 

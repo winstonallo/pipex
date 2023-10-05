@@ -27,22 +27,6 @@
 #  define BUFFER_SIZE 10
 # endif
 
-typedef struct s_list
-{
-	char			**paths;
-	char			*input_path;
-	char			*output_path;
-	int				pipe[2];
-	pid_t			process_id;
-	int				input_fd;
-	int				output_fd;
-	char			**input_args;
-	char			**output_args;
-	char			*input_command;
-	char			*output_command;
-	int				open_return_infile;
-}	t_list;
-
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);

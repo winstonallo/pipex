@@ -12,7 +12,7 @@
 
 #include "../include/pipex.h"
 
-void	pipex(t_list *data, char **argv, char **envp)
+void	pipex(t_dumpster *data, char **argv, char **envp)
 {
 	initialize_args(argv, data);
 	parse_environment(envp, data);
@@ -22,25 +22,30 @@ void	pipex(t_list *data, char **argv, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_list *data;
+	t_dumpster *data;
 
-	data = malloc(sizeof(t_list));
+	data = malloc(sizeof(t_dumpster));
+	if (!data)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	if (argc != 5)
 	{
 		ft_putendl_fd("Error: Too many arguments(./pipex in c1 c2 out)", 2);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}	
 	if (pipe(data->pipe) == -1)
 	{
 		perror("pipe");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	pipex(data, argv, envp);
 	data->process_id = fork();
 	if (data->process_id == -1)
 	{
 		perror("fork");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	if (data->process_id == 0)
 		firstborn(data, envp, argv);

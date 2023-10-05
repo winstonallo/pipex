@@ -15,17 +15,29 @@
 
 # include "../libft/libft.h"
 
+typedef struct s_dumpster
+{
+	char			**paths;
+	char			*input_path;
+	char			*output_path;
+	int				pipe[2];
+	pid_t			process_id;
+	int				input_fd;
+	int				output_fd;
+	char			**input_args;
+	char			**output_args;
+	char			*input_command;
+	char			*output_command;
+}	t_dumpster;
+
 int		main(int argc, char **argv, char **envp);
-// void	give_birth1(t_list *data, char **envp);
-// void	parent(t_list *data, char **envp);
-int		initialize_args(char **argv, t_list *data);
-char	*get_path(char *command, t_list *data);
-int		parse_environment(char **envp, t_list *data);
-// void	close_pipes(t_list *data);
-int		cleanup(t_list *data);
-// void	ft_free_array(char **arr);
-void	initialize_data(t_list *data);
-int		open_files(char *file_name, int fd, t_list *data);
-// void	error(char *error_message, t_list *data);*/
+void	firstborn(t_dumpster *data, char **envp, char **argv);
+void	mommy(t_dumpster *data, char **envp, char **argv);
+int		initialize_args(char **argv, t_dumpster *data);
+char	*get_path(char *command, t_dumpster *data);
+int		parse_environment(char **envp, t_dumpster *data);
+int		cleanup(t_dumpster *data);
+void	initialize_data(t_dumpster *data);
+int		open_files(char *file_name, int fd, t_dumpster *data);
 
 #endif

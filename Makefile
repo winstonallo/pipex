@@ -13,8 +13,9 @@
 NAME = pipex
 
 SRCS =  src/pipex.c \
-		utils/initialize.c \
 		src/arguments.c \
+		src/family.c \
+		utils/initialize.c \
 		utils/cleanup.c \
 		
 OBJS = ${SRCS:.c=.o}

@@ -12,7 +12,7 @@
 
 #include "../include/pipex.h"
 
-int	parse_environment(char **envp, t_list *data)
+int	parse_environment(char **envp, t_dumpster *data)
 {
 	char		**temp;
 
@@ -32,7 +32,7 @@ int	parse_environment(char **envp, t_list *data)
 	return (0);
 }
 
-char	*get_path(char *command, t_list *data)
+char	*get_path(char *command, t_dumpster *data)
 {
 	int		i;
 	char	*final_path;
@@ -60,7 +60,7 @@ char	*get_path(char *command, t_list *data)
 	return (NULL);
 }
 
-int	initialize_args(char **argv, t_list *data)
+int	initialize_args(char **argv, t_dumpster *data)
 {
 	data->output_args = ft_split(argv[3], ' ');
 	if (!data->output_args)

@@ -12,7 +12,7 @@
 
 #include "../include/pipex.h"
 
-void	fuck_mich_nich_ab_jz(char *s, char **a, char **e, t_list *d)
+static void	fuck_mich_nich_ab_jz(char *s, char **a, char **e, t_dumpster *d)
 {
 	if (execve(s, a, e) == -1)
 	{
@@ -22,7 +22,7 @@ void	fuck_mich_nich_ab_jz(char *s, char **a, char **e, t_list *d)
 	}
 }
 
-void	firstborn(t_list *data, char **envp, char **argv)
+void	firstborn(t_dumpster *data, char **envp, char **argv)
 {
 	open_files(argv[4], 0, data);
 	if (dup2(data->input_fd, STDIN_FILENO) == -1)
@@ -41,7 +41,7 @@ void	firstborn(t_list *data, char **envp, char **argv)
 	fuck_mich_nich_ab_jz(data->input_path, data->input_args, envp, data);
 }
 
-void	mommy(t_list *data, char **envp, char **argv)
+void	mommy(t_dumpster *data, char **envp, char **argv)
 {
 	open_files(argv[4], 1, data);
 	if (dup2(data->output_fd, STDOUT_FILENO) == -1)
