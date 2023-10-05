@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 17:29:12 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 19:30:24 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	pipex(t_list *data, char **envp, char **argv)
 		return (perror("Output path"), cleanup(data), -1);
 	if (pipe(data->pipe) < 0)
 		return (perror("Pipe"), cleanup(data), -1);
-	open_files(argv, data);
+	if (open_files(argv, data) == -1)
+		return (-1);
 	data->process_id1 = fork();
 	if (data->process_id1 == 0)
 		give_birth1(data, envp);
