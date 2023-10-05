@@ -80,3 +80,4 @@ int	initialize_args(char **argv, t_list *data)
 	data->input_command = data->input_args[0];
 	return (0);
 }
+
