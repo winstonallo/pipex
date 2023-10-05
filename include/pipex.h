@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:27:08 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 13:13:41 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:43:14 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		initialize_args(char **argv, t_list *data);
 char	*get_path(char *command, t_list *data);
 int		parse_environment(char **envp, t_list *data);
 void	close_pipes(t_list *data);
-void	cleanup(t_list *data);
+int		cleanup(t_list *data);
 void	ft_free_array(char **arr);
 void	initialize_data(t_list *data);
 void	open_files(char **argv, t_list *data);

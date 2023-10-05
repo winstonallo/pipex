@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 13:53:19 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:18:42 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ char	*get_path(char *command, t_list *data)
 	i = -1;
 	command = ft_strjoin("/", command);
 	if (!command)
-		return (NULL);
+		return (perror("memory allocation"), NULL);
 	while (data->paths[++i])
 	{
 		final_path = ft_strjoin(data->paths[i], command);
 		if (!final_path)
-			return (NULL);
+			return (perror("memory allocation"), NULL);
 		if (access(final_path, X_OK) == 0)
 		{
 			free(command);
@@ -55,6 +55,9 @@ char	*get_path(char *command, t_list *data)
 		}
 		free(final_path);
 	}
+	perror("command not found");
+	free(command);
+	exit(cleanup(data));
 	return (NULL);
 }
 
@@ -62,11 +65,19 @@ int	initialize_args(char **argv, t_list *data)
 {
 	data->output_args = ft_split(argv[3], ' ');
 	if (!data->output_args)
-		error("Output Arguments", data);
+	{
+		perror("ouput arguments");
+		cleanup(data);
+		exit (-1);
+	}
 	data->output_command = data->output_args[0];
 	data->input_args = ft_split(argv[2], ' ');
 	if (!data->input_args)
-		error("Input Arguments", data);
+	{
+		perror("input arguments");
+		cleanup(data);
+		exit (-1);
+	}
 	data->input_command = data->input_args[0];
 	return (0);
 }
