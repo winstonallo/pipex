@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 21:43:11 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/05 23:15:27 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_path(char *command, t_list *data)
 		final_path = ft_strjoin(data->paths[i], command);
 		if (!final_path)
 			return (perror("Memory allocation"), NULL);
-		if (access(final_path, X_OK) == 0)
+		if (access(final_path, R_OK | X_OK) == 0)
 			return (free(command), final_path);
 		free(final_path);
 	}

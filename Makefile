@@ -6,18 +6,17 @@
 #    By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 14:35:18 by codespace         #+#    #+#              #
-#    Updated: 2023/10/05 19:33:29 by abied-ch         ###   ########.fr        #
+#    Updated: 2023/10/05 23:08:18 by abied-ch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
 SRCS =  src/pipex.c \
-		src/children.c \
+		utils/initialize.c \
 		src/arguments.c \
 		utils/cleanup.c \
-		utils/initialize.c \
-
+		
 OBJS = ${SRCS:.c=.o}
 
 CC = cc
