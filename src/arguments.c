@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/06 14:26:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 15:23:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ char	*get_path(char *command, t_dumpster *data)
 			return (perror("Memory allocation"), free(command), NULL);
 		if (access(final_path, R_OK | X_OK) == 0)
 			return (free(command), final_path);
-		if (access(final_path, R_OK | X_OK) < 0)
+		else if (access(final_path, R_OK | X_OK) < 0)
 		{
 			perror("access");
 			cleanup(data);
+			free(command);
+			free(final_path);
 			exit (EXIT_FAILURE);
 		}
 		free(final_path);
