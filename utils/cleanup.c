@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:17:29 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 15:16:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 13:19:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	cleanup(t_dumpster *data)
 		free(data->input_path);
 	if (data->output_path)
 		free(data->output_path);
-	free(data);
 	close_pipes(data);
+	free(data);
 	return (-1);
 }
 

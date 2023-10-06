@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 23:39:23 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 13:24:00 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	pipex(t_dumpster *data, char **argv, char **envp)
 {
+	initialize_dumpster(data);
 	initialize_args(argv, data);
 	parse_environment(envp, data);
 	data->input_path = get_path(data->input_command, data);
@@ -32,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (argc != 5)
 	{
+		free(data);
 		ft_putendl_fd("Error: Too many arguments(./pipex in c1 c2 out)", 2);
 		exit(EXIT_FAILURE);
 	}	

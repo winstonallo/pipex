@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:27:08 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 23:15:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 13:21:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int		parse_environment(char **envp, t_dumpster *data);
 int		cleanup(t_dumpster *data);
 void	initialize_data(t_dumpster *data);
 int		open_files(char *file_name, int fd, t_dumpster *data);
+void	initialize_dumpster(t_dumpster *data);
 
 #endif

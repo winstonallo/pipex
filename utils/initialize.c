@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:19:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 22:57:22 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 13:22:45 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,14 @@ int	open_files(char *file_name, int fd, t_dumpster *data)
 	exit (EXIT_FAILURE);
 }
 
+void initialize_dumpster(t_dumpster *data)
+{
+	data->input_args = NULL;
+	data->output_args = NULL;
+	data->input_command = NULL;
+	data->output_command = NULL;
+	data->input_fd = -1;
+	data->output_fd = -1;
+	data->output_path = NULL;
+	data->input_path = NULL;
+}
