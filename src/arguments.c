@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/06 15:23:33 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:04:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	parse_environment(char **envp, t_dumpster *data)
 			if (!data->paths)
 			{
 				cleanup(data);
-				exit(EXIT_FAILURE);	
+				exit(EXIT_FAILURE);
 			}
 		}
 		envp++;
@@ -53,17 +53,9 @@ char	*get_path(char *command, t_dumpster *data)
 			return (perror("Memory allocation"), free(command), NULL);
 		if (access(final_path, R_OK | X_OK) == 0)
 			return (free(command), final_path);
-		else if (access(final_path, R_OK | X_OK) < 0)
-		{
-			perror("access");
-			cleanup(data);
-			free(command);
-			free(final_path);
-			exit (EXIT_FAILURE);
-		}
 		free(final_path);
 	}
-	perror("Command not found");
+	perror("command not found");
 	free(command);
 	return (NULL);
 }
