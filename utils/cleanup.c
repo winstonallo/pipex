@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:17:29 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/06 15:57:56 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:44:35 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	ft_free_array(char **arr)
 	{
 		while (arr[++i])
 			free(arr[i]);
-		free(arr);	
-	}	
+		free(arr);
+	}
 }
 
 int	cleanup(t_dumpster *data)
@@ -43,9 +43,12 @@ int	cleanup(t_dumpster *data)
 		free(data->input_path);
 	if (data->output_path)
 		free(data->output_path);
+	if (data->input_command)
+		free(data->input_command);
+	if (data->output_command)
+		free(data->output_command);
 	close_pipes(data);
 	if (data)
 		free(data);
 	return (0);
 }
-
