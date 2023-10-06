@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/06 18:11:21 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:13:30 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	pipex(t_dumpster *data, char **argv, char **envp)
 void	error(t_dumpster *data, char *msg)
 {
 	free(data);
-	ft_putstr_fd("Error: ", 2);
+	ft_putstr_fd("💀 Error 💀: ", 2);
 	ft_putendl_fd(msg, 2);
 	exit(EXIT_FAILURE);
 }
@@ -34,7 +34,7 @@ static void	forky(t_dumpster *data, char **argv, char **envp)
 	data->process_id = fork();
 	if (data->process_id == -1)
 	{
-		perror("fork");
+		perror("💀 fork 💀");
 		cleanup(data);
 		exit(EXIT_FAILURE);
 	}
@@ -50,14 +50,14 @@ int	main(int argc, char **argv, char **envp)
 	data = malloc(sizeof(t_dumpster));
 	if (!data)
 	{
-		perror("malloc");
+		perror("💀 malloc 💀");
 		exit(EXIT_FAILURE);
 	}
 	if (argc != 5)
 		error(data, "Invalid Input -- (./pipex infile cm1 cmd2 outfile)");
 	if (pipe(data->pipe) == -1)
 	{
-		perror("pipe");
+		perror("💀 pipe 💀");
 		cleanup(data);
 		exit(EXIT_FAILURE);
 	}

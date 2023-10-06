@@ -6,7 +6,7 @@
 #    By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 14:35:18 by codespace         #+#    #+#              #
-#    Updated: 2023/10/05 23:08:18 by abied-ch         ###   ########.fr        #
+#    Updated: 2023/10/06 18:22:57 by abied-ch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes -g
 
 RM = rm -rf
 
-all: ${NAME} ${CHECK}
+all: ${NAME} ${CHECK} 
 ${NAME}: ${OBJS}
 	@${MAKE} -C ./libft --no-print-directory
 	@${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${NAME}
