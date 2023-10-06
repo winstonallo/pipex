@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:12:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/06 14:22:04 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:04:25 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ void	mommy(t_dumpster *data, char **envp, char **argv)
 		cleanup(data);
 		exit(EXIT_FAILURE);
 	}
-	if (data->output_path)
-		fuck_mich_nich_ab_jz(data->output_path, data->output_args, envp, data);
+	if (data->output_path == NULL)
+	{
+		cleanup(data);
+		exit(EXIT_FAILURE);
+	}
+	fuck_mich_nich_ab_jz(data->output_path, data->output_args, envp, data);
 }
