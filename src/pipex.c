@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 20:26:50 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/06 13:24:00 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:09:12 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,30 @@ void	pipex(t_dumpster *data, char **argv, char **envp)
 	initialize_args(argv, data);
 	parse_environment(envp, data);
 	data->input_path = get_path(data->input_command, data);
+	if (!data->input_path)
+	{
+		perror("malloc");
+		exit(cleanup(data));
+	}
 	data->output_path = get_path(data->output_command, data);
+	if (!data->output_path)
+	{
+		perror("malloc");
+		exit(cleanup(data));
+	}
+}
+
+void	error(t_dumpster *data, char *msg)
+{
+	free(data);
+	ft_putstr_fd("Error: ", 2);
+	ft_putendl_fd(msg, 2);
+	exit(EXIT_FAILURE);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_dumpster *data;
+	t_dumpster	*data;
 
 	data = malloc(sizeof(t_dumpster));
 	if (!data)
@@ -32,14 +50,11 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	if (argc != 5)
-	{
-		free(data);
-		ft_putendl_fd("Error: Too many arguments(./pipex in c1 c2 out)", 2);
-		exit(EXIT_FAILURE);
-	}	
+		error(data, "Invalid Input -- (./pipex infile cm1 cmd2 outfile)");
 	if (pipe(data->pipe) == -1)
 	{
 		perror("pipe");
+		cleanup(data);
 		exit(EXIT_FAILURE);
 	}
 	pipex(data, argv, envp);
@@ -47,9 +62,11 @@ int	main(int argc, char **argv, char **envp)
 	if (data->process_id == -1)
 	{
 		perror("fork");
+		cleanup(data);
 		exit(EXIT_FAILURE);
 	}
 	if (data->process_id == 0)
 		firstborn(data, envp, argv);
 	mommy(data, envp, argv);
+	cleanup(data);
 }

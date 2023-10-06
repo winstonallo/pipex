@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 23:15:27 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:26:43 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	parse_environment(char **envp, t_dumpster *data)
 			*envp += 5;
 			data->paths = ft_split(*envp, ':');
 			if (!data->paths)
-				return (-1);
+			{
+				cleanup(data);
+				exit(EXIT_FAILURE);	
+			}
 		}
 		envp++;
 	}
@@ -40,8 +43,6 @@ char	*get_path(char *command, t_dumpster *data)
 	if (!data->paths)
 		return (NULL);
 	i = -1;
-	if (access(command, X_OK) == 0)
-		return (ft_strdup(command));
 	command = ft_strjoin("/", command);
 	if (!command)
 		return (perror("Memory allocation"), NULL);
@@ -49,14 +50,19 @@ char	*get_path(char *command, t_dumpster *data)
 	{
 		final_path = ft_strjoin(data->paths[i], command);
 		if (!final_path)
-			return (perror("Memory allocation"), NULL);
+			return (perror("Memory allocation"), free(command), NULL);
 		if (access(final_path, R_OK | X_OK) == 0)
 			return (free(command), final_path);
+		if (access(final_path, R_OK | X_OK) < 0)
+		{
+			perror("access");
+			cleanup(data);
+			exit (EXIT_FAILURE);
+		}
 		free(final_path);
 	}
 	perror("Command not found");
 	free(command);
-	exit(cleanup(data));
 	return (NULL);
 }
 
@@ -80,4 +86,3 @@ int	initialize_args(char **argv, t_dumpster *data)
 	data->input_command = data->input_args[0];
 	return (0);
 }
-
