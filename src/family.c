@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   children.c                                         :+:      :+:    :+:   */
+/*   family.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:12:15 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/05 22:34:05 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:21:05 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	fuck_mich_nich_ab_jz(char *s, char **a, char **e, t_dumpster *d)
 
 void	firstborn(t_dumpster *data, char **envp, char **argv)
 {
-	open_files(argv[4], 0, data);
+	open_files(argv[1], 0, data);
 	if (dup2(data->input_fd, STDIN_FILENO) == -1)
 	{
 		perror("firstborn dup2");
