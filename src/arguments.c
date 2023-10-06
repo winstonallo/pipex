@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:14:26 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/06 16:04:43 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:54:33 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*get_path(char *command, t_dumpster *data)
 
 	if (!data->paths)
 		return (NULL);
+	if (access(command, R_OK | X_OK) == 0)
+		return (command);
 	i = -1;
 	command = ft_strjoin("/", command);
 	if (!command)
