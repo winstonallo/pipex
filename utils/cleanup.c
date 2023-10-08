@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:17:29 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/06 18:08:35 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/08 12:21:28 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static void	close_pipes(t_dumpster *data)
 {
-	close(data->pipe[0]);
+	
+	close(data->pipe[0]);	
 	close(data->pipe[1]);
-}
+	}
 
 static void	ft_free_array(char **arr)
 {
