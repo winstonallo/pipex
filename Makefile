@@ -6,11 +6,13 @@
 #    By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/26 14:35:18 by codespace         #+#    #+#              #
-#    Updated: 2023/10/06 18:22:57 by abied-ch         ###   ########.fr        #
+#    Updated: 2023/10/06 19:50:48 by abied-ch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
+
+OBJ_DIR = obj
 
 SRCS =  src/pipex.c \
 		src/arguments.c \
@@ -28,15 +30,15 @@ RM = rm -rf
 
 all: ${NAME} ${CHECK} 
 ${NAME}: ${OBJS}
-	@${MAKE} -C ./libft --no-print-directory
-	@${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${NAME}
+	${MAKE} -C ./libft --no-print-directory
+	${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${NAME}
 
 clean: 
-	@${MAKE} -C ./libft --no-print-directory fclean
-	@${RM} ${OBJS}
+	${MAKE} -C ./libft --no-print-directory fclean
+	${RM} ${OBJS}
 
 fclean: clean
-	@${RM} ${NAME}
+	${RM} ${NAME}
 
 re: fclean all
 	

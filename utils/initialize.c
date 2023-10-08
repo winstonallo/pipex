@@ -6,7 +6,7 @@
 /*   By: abied-ch <abied-ch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:19:18 by abied-ch          #+#    #+#             */
-/*   Updated: 2023/10/06 19:14:59 by abied-ch         ###   ########.fr       */
+/*   Updated: 2023/10/08 12:13:53 by abied-ch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	open_files(char *file_name, int fd, t_dumpster *data)
 		if (data->input_fd == -1)
 		{
 			perror("💀 open infile 💀");
+			cleanup(data);
+			exit(EXIT_FAILURE);
 		}
 	}
 	else if (fd == 1)
