@@ -12,6 +12,38 @@ In order to imitate this in a C program, we will need a few functions we have no
 
 ## Functions:
 
+### execve
+
+```
+int execve(char *path, char **arguments, char **environment)
+```
+
+The **execve** C function takes 3 arguments:
+  
+  1. char *path: The path to the command you want to execute. (cat -> /usr/bin/cat);
+  2. char **arguments: An array of arguments for your command (cat -e -> arguments[0] = "cat", arguments[1] = "-e");
+  3. char **environment: The environment array, we will get to that later.
+
+execve kills the current process, for example in this code snippet:
+
+```
+  execve("/usr/bin/ls", args, env);
+  printf("Hello World");
+  return (0);
+```
+
+The second line will never be executed, since the program is being redirected to the shell, which is why we will need the next function.
+
+### fork
+
+```
+int fork(); 
+```
+
+The **fork** C function duplicates the current process into a child process. Its return value is a process ID.
+
+The child's process ID will always be 0, the parent's != 0, which allows to differentiate them and make them do different things.
+
 ### pipe
 
 ```
@@ -26,13 +58,6 @@ reading from the other end.
 
 This is what we will use to replicate the behavior of the bash pipe.
 
-### fork
 
-```
-int fork(); 
-```
 
-The **fork** C function duplicates the current process into a child process. Its return value is a process ID.
-
-The child's process ID will always be 0, the parent's != 0, which allows to differentiate them and make them do different things.
 
