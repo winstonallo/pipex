@@ -14,7 +14,9 @@ In order to imitate this in a C program, we will need a few functions we have no
 
 ### pipe
 
+```
 int pipe(int fd[2]);
+```
 
 The 'pipe' C function takes an array of 2 integers as a parameter and allocates 2 file descriptors to each of its indexes.
 fd[0] is called the reading end of the pipe, fd [1] is the writing end.
@@ -23,7 +25,9 @@ reading from the other end. This is what we will use to replicate the behavior o
 
 ### fork
 
+```
 int fork();
+```
 
 Tho 'fork' C function duplicates the current process into a child process. Its return value is a process ID. The child's process ID will always be 0, 
 the parent's != 0, which allows to differentiate them and make them do different things.
