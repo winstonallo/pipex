@@ -26,7 +26,7 @@ reading from the other end. This is what we will use to replicate the behavior o
 ### fork
 
 ```
-int fork();
+int fork(); 
 ```
 
 Tho 'fork' C function duplicates the current process into a child process. Its return value is a process ID. The child's process ID will always be 0, 
