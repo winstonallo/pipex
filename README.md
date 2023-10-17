@@ -12,7 +12,7 @@ In order to imitate this in a C program, we will need a few functions we have no
 
 ## Functions:
 
-# pipe
+### pipe
 
 int pipe(int fd[2]);
 
@@ -21,7 +21,7 @@ fd[0] is called the reading end of the pipe, fd [1] is the writing end.
 This pipe allows communication between two different processes, with one of them printing to an end of the pipe, and the other one
 reading from the other end. This is what we will use to replicate the behavior of the bash pipe.
 
-# fork
+### fork
 
 int fork();
 
