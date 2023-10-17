@@ -18,7 +18,7 @@ In order to imitate this in a C program, we will need a few functions we have no
 int pipe(int fd[2]);
 ```
 
-The 'pipe' C function takes an array of 2 integers as a parameter and allocates 2 file descriptors to each of its indexes.
+The **pipe** C function takes an array of 2 integers as a parameter and allocates 2 file descriptors to each of its indexes.
 fd[0] is called the reading end of the pipe, fd [1] is the writing end.
 
 This pipe allows communication between two different processes, with one of them printing to an end of the pipe, and the other one
@@ -32,7 +32,7 @@ This is what we will use to replicate the behavior of the bash pipe.
 int fork(); 
 ```
 
-Tho 'fork' C function duplicates the current process into a child process. Its return value is a process ID.
+Tho **fork** C function duplicates the current process into a child process. Its return value is a process ID.
 
 The child's process ID will always be 0, the parent's != 0, which allows to differentiate them and make them do different things.
 
