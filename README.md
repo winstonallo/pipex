@@ -32,7 +32,7 @@ This is what we will use to replicate the behavior of the bash pipe.
 int fork(); 
 ```
 
-Tho **fork** C function duplicates the current process into a child process. Its return value is a process ID.
+The **fork** C function duplicates the current process into a child process. Its return value is a process ID.
 
 The child's process ID will always be 0, the parent's != 0, which allows to differentiate them and make them do different things.
 
