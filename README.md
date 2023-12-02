@@ -1,5 +1,7 @@
 # pipex
 
+42 uni project
+
 This project aims to emulate the bash pipe:
 
 ```
@@ -10,7 +12,9 @@ becomes
   ./pipex "infile" "command 1" "command 2" "outfile" 
 ```
 
-(42 uni project, grade 100/100)
+### grade
+
+100/100
 
 
 
