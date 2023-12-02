@@ -10,7 +10,7 @@ becomes
   ./pipex "infile" "command 1" "command 2" "outfile" 
 ```
 
-(42 Uni Project, 100/100)
+(42 uni project, grade 100/100)
 
 
 
